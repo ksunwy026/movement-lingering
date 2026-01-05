@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Network Flow Diagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: transparent;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .flow-diagram {
+            position: relative;
+        }
+
+        .node {
+            background: #e8e8e8;
+            border: 2px solid #000;
+            padding: 16px 20px;
+            margin: 0 auto 16px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .node:hover {
+            background: #f5f5f5;
+        }
+
+        .node-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .node-subtitle {
+            font-size: 14px;
+            color: #000;
+            line-height: 1.5;
+        }
+
+        .primary-node {
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .dual-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .dual-node {
+            padding: 16px;
+        }
+
+        .connector {
+            text-align: center;
+            padding: 8px 0;
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .connector-line {
+            width: 2px;
+            height: 30px;
+            background: #000;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .connector-line::after {
+            content: '▼';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #000;
+            font-size: 10px;
+        }
+
+        .connector-label {
+            font-size: 12px;
+            color: #000;
+            margin-top: 8px;
+        }
+
+        .center-node {
+            max-width: 360px;
+        }
+
+        .large-node {
+            max-width: 400px;
+        }
+
+        .list-item {
+            font-size: 14px;
+            margin: 4px 0;
+            padding-left: 16px;
+            position: relative;
+            color: #000;
+        }
+
+        .list-item::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+        }
+
+        .final-text {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #000;
+            padding: 16px;
+        }
+
+        /* Staggered layout for dual nodes */
+        .dual-container .dual-node:first-child {
+            margin-top: 0;
+        }
+
+        .dual-container .dual-node:last-child {
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .dual-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dual-container .dual-node:last-child {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flow-diagram">
+            <!-- Top Node -->
+            <div class="node primary-node">
+                <div class="node-title">Urban Network</div>
+                <div class="node-subtitle">(nodes + edges)</div>
+            </div>
+
+            <div class="connector">
+                <div class="connector-line"></div>
+                <div class="connector-label">spatial context</div>
+            </div>
+
+            <!-- Dual Input Nodes (Staggered) -->
+            <div class="dual-container">
+                <div class="node dual-node">
+                    <div class="node-title">Retail & Anchors</div>
+                    <div class="node-subtitle">(stores, weight)</div>
+                </div>
+                <div class="node dual-node">
+                    <div class="node-title">Environment Features</div>
+                    <div class="node-subtitle">(park, clusters, mix)</div>
+                </div>
+            </div>
+
+            <div class="connector">
+                <div class="connector-line"></div>
+                <div class="connector-label">attractiveness inputs</div>
+            </div>
+
+            <!-- Attractiveness Node -->
+            <div class="node center-node">
+                <div class="node-title">Node Attractiveness</div>
+                <div class="node-subtitle">f(anchor, mix,<br>&nbsp;&nbsp;cluster)</div>
+            </div>
+
+            <div class="connector">
+                <div class="connector-line"></div>
+                <div class="connector-label">influences</div>
+            </div>
+
+            <!-- Agent-Based Movement -->
+            <div class="node large-node">
+                <div class="node-title">Agent-Based Movement</div>
+                <div class="node-subtitle">Agents choose next street node<br>based on:</div>
+                <div style="margin-top: 8px;">
+                    <div class="list-item">Attractiveness (β)</div>
+                    <div class="list-item">Distance cost</div>
+                    <div class="list-item">Lingering tendency</div>
+                </div>
+            </div>
+
+            <div class="connector">
+                <div class="connector-line"></div>
+                <div class="connector-label">aggregated over agents</div>
+            </div>
+
+            <!-- Output Node -->
+            <div class="node center-node">
+                <div class="node-title">Movement Flow (Edges)</div>
+                <div class="node-title">Lingering Heat (Nodes)</div>
+            </div>
+
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+
+            <!-- Final Text -->
+            <div class="final-text">Final Scenario Maps</div>
+        </div>
+    </div>
+</body>
+</html>
